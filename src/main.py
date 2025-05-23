@@ -6,7 +6,7 @@ import threading
 
 import gi
 gi.require_version("Gtk", "4.0")
-from gi.repository import Gtk, GLib, GObject, Gio, Adw
+from gi.repository import Gtk, GLib, GObject, Gio
 
 #include errors.py
 #include nbfc_client.py
