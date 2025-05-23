@@ -1,0 +1,37 @@
+NBFC-Gtk - GUI for NBFC-Linux
+=============================
+
+**nbfc-gtk** is a simple Gtk-based graphical user interface for [nbfc-linux](https://github.com/nbfc-linux/nbfc-linux).
+
+**NOTE: This is an alpha version**
+
+Installation
+------------
+
+- Arch Linux:
+  - [Latest Version %TAG%](%ARCHLINUX_URL%)
+  - Install the dependencies: `pacman -S python-gobject gtk4`
+  - Install package: `pacman -U ./%ARCHLINUX_PACKAGE%`
+
+- Debian / Ubuntu:
+  - [Latest Version %TAG%](%DEBIAN_URL%)
+  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0`
+  - Install package: `dpkg -i ./%DEBIAN_PACKAGE%`
+
+- Fedora:
+  - [Latest Version %TAG%](%FEDORA_URL%)
+  - Install the dependencies: `dnf install python3-gobject gtk4`
+  - Install package: `dnf install ./%FEDORA_PACKAGE%`
+
+- OpenSuse (Tumbleweed)
+  - [Latest Version %TAG%](%OPENSUSE_URL%)
+  - Install the dependencies: `dnf install python3-gobject gtk4 gtk4-devel`
+  - Install package: `zypper install ./%OPENSUSE_PACKAGE%`
+
+- In general:
+  - make && sudo make install
+
+Usage
+-----
+
+For **configuring** and **starting** the NBFC service, run `sudo nbfc-gtk`.
