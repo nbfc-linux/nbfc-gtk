@@ -35,3 +35,16 @@ Usage
 -----
 
 For **configuring** and **starting** the NBFC service, run `sudo nbfc-gtk`.
+
+Screenshots
+-----------
+
+![Screenshot NBFC-Gtk Service control](http://nbfc-linux.github.io/img/nbfc-gtk/nbfc-gtk-service.png)
+
+![Screenshot NBFC-Gtk Fan Control](http://nbfc-linux.github.io/img/nbfc-gtk/nbfc-gtk-fans.png)
+
+![Screenshot NBFC-Gtk Basic Configuration](http://nbfc-linux.github.io/img/nbfc-gtk/nbfc-gtk-basic.png)
+
+![Screenshot NBFC-Gtk Sensor Configuration](http://nbfc-linux.github.io/img/nbfc-gtk/nbfc-gtk-sensors.png)
+
+![Screenshot NBFC-Gtk Update](http://nbfc-linux.github.io/img/nbfc-gtk/nbfc-gtk-update.png)
