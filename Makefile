@@ -9,6 +9,7 @@ nbfc-gtk.py: \
 	src/subprocess_worker.py \
 	src/gtk_common.py \
 	src/common.py \
+	src/version.py \
 	src/widgets/apply_buttons_widget.py \
 	src/widgets/about_widget.py \
 	src/widgets/service_control_widget.py \
@@ -18,6 +19,7 @@ nbfc-gtk.py: \
 	src/widgets/sensor_widget.py \
 	src/widgets/sensors_widget.py \
 	src/widgets/update_widget.py \
+	src/widgets/early_error_window.py \
 	src/widgets/main_window.py
 	(cd ./src; python3 ./include_files.py main.py > ../nbfc-gtk.py)
 	chmod +x nbfc-gtk.py
