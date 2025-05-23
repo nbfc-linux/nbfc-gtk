@@ -1,0 +1,34 @@
+# Maintainer: Benjamin Abendroth <braph93@gmx.de>
+
+pkgname=nbfc-gtk-git
+_pkgname=nbfc-gtk
+pkgver=0.0.0
+pkgrel=1
+pkgdesc="GUI for NBFC-Linux (Gtk-based)"
+arch=('i686' 'x86_64')
+url="https://github.com/nbfc-linux/nbfc-gtk"
+makedepends=('git')
+depends=('python-gobject gtk4')
+license=('GPL3')
+source=("${_pkgname}::git+${url}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${_pkgname}"
+
+  cat VERSION
+}
+
+build() {
+	cd "${srcdir}/${_pkgname}"
+
+  make
+}
+
+package() {
+	cd "${srcdir}/${_pkgname}"
+
+  make DESTDIR="${pkgdir}" install
+}
+
+# vim:set ts=2 sw=2 et:
