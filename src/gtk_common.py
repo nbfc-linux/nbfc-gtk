@@ -44,7 +44,10 @@ class ErrorWidget(Gtk.Window):
         self.present()
 
 def show_error_message(widget, title, message):
-    toplevel = widget.get_ancestor(Gtk.Window)
+    if widget is not None:
+        toplevel = widget.get_ancestor(Gtk.Window)
+    else:
+        toplevel = None
 
     dialog = ErrorWidget(toplevel, title, message)
 
@@ -81,8 +84,8 @@ class FileDialogHelper:
 
         return selected_file["path"]
 
-class SimpleDropDownItem(GObject.Object):
-    __gtype_name__ = "SimpleDropDownItem"
+class SimpleItem(GObject.Object):
+    __gtype_name__ = "SimpleItem"
 
     def __init__(self, key, value):
         super().__init__()
@@ -109,7 +112,7 @@ class SimpleDropDown(Gtk.DropDown):
         factory.connect("setup", self._on_factory_setup)
         factory.connect("bind", self._on_factory_bind)
 
-        self.model = Gio.ListStore(item_type=SimpleDropDownItem)
+        self.model = Gio.ListStore(item_type=SimpleItem)
 
         super().__init__(model=self.model, factory=factory)
 
@@ -123,7 +126,7 @@ class SimpleDropDown(Gtk.DropDown):
         label.set_text(item.getValue())
 
     def add(self, key, value):
-        self.model.append(SimpleDropDownItem(key, value))
+        self.model.append(SimpleItem(key, value))
 
 class SimpleListView(Gtk.Box):
     __gtype_name__ = 'SimpleListView'
@@ -132,7 +135,7 @@ class SimpleListView(Gtk.Box):
         super().__init__(orientation=orientation, **kwargs)
 
         # 1) Model: ListStore for Item objects
-        self.model = Gio.ListStore.new(SimpleDropDownItem)
+        self.model = Gio.ListStore.new(SimpleItem)
 
         # 2) Selection model
         self.selection = Gtk.SingleSelection.new(self.model)
@@ -163,16 +166,7 @@ class SimpleListView(Gtk.Box):
         label.set_text(item.value)
 
     def add(self, key, value):
-        self.model.append(SimpleDropDownItem(key, value))
-
-    def set_items(self, items): # TODO
-        """
-        Populate the list.
-        items: iterable of (id: str, value: str)
-        """
-        self.model.remove_all()
-        for _id, val in items:
-            self.model.append(Item(id=_id, value=val))
+        self.model.append(SimpleItem(key, value))
 
     def get_selected_idx(self):
         return self.selection.get_selected()
@@ -181,20 +175,20 @@ class SimpleListView(Gtk.Box):
         """Return the id of the currently selected item, or None."""
         idx = self.selection.get_selected()
         if idx >= 0:
-            return self.model.get_item(idx).id
+            return self.model.get_item(idx).getKey()
         return None
 
     def get_selected_value(self):
         """Return the display value of the currently selected item, or None."""
         idx = self.selection.get_selected()
         if idx >= 0:
-            return self.model.get_item(idx).value
+            return self.model.get_item(idx).getValue()
         return None
 
     def select_id(self, id_to_select):
         """Programmatically select the item matching the given id."""
         for idx in range(self.model.get_n_items()):
-            if self.model.get_item(idx).id == id_to_select:
+            if self.model.get_item(idx).getKey() == id_to_select:
                 self.selection.set_selected(idx)
                 return
 

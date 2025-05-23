@@ -2,7 +2,7 @@ class SensorsWidget(Gtk.Box):
     def __init__(self):
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
 
-        #GLOBALS.model_config_changed.connect(self.setup_ui) TODO
+        GLOBALS.connect("model_config_changed", self.model_config_changed_signal)
 
         # =====================================================================
         # Error Widget
@@ -12,16 +12,28 @@ class SensorsWidget(Gtk.Box):
         self.append(self.error_widget)
 
         self.error_label = Gtk.Label()
+        self.error_label.set_hexpand(True)
+        self.error_label.set_vexpand(True)
         self.error_widget.append(self.error_label)
 
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         self.error_widget.append(button_box)
 
         self.retry_button = Gtk.Button(label="Retry")
+        self.retry_button.set_margin_start(6)
+        self.retry_button.set_margin_end(6)
+        self.retry_button.set_margin_top(6)
+        self.retry_button.set_margin_bottom(6)
+        self.retry_button.set_hexpand(True)
         self.retry_button.connect("clicked", self.retry_button_clicked)
         button_box.append(self.retry_button)
 
         self.fix_button = Gtk.Button(label="Fix errors automatically")
+        self.fix_button.set_margin_start(6)
+        self.fix_button.set_margin_end(6)
+        self.fix_button.set_margin_top(6)
+        self.fix_button.set_margin_bottom(6)
+        self.fix_button.set_hexpand(True)
         self.fix_button.connect("clicked", self.fix_button_clicked)
         button_box.append(self.fix_button)
 
@@ -104,7 +116,7 @@ class SensorsWidget(Gtk.Box):
             len(model_config['FanConfigurations']))
 
         if errors and not fix_errors:
-            self.error_widget.set_visible(True) # TODO make function for this
+            self.error_widget.set_visible(True)
             self.main_widget.set_visible(False)
             self.error_label.set_text('\n\n'.join(errors))
             self.fix_button.set_sensitive(True)
@@ -127,11 +139,9 @@ class SensorsWidget(Gtk.Box):
             widget = SensorWidget()
             self.notebook.append_page(widget, Gtk.Label())
 
-        # TODO test this
         while self.notebook.get_n_pages() > len(model_config['FanConfigurations']):
             last = self.notebook.get_n_pages() - 1
-            widget = self.notebook.get_nth_page(last)
-            self.notebook.remove(widget)
+            self.notebook.remove_page(last)
 
         # =====================================================================
         # Set fan names to tabs
@@ -187,4 +197,7 @@ class SensorsWidget(Gtk.Box):
         self.setup_ui(fix_errors=True)
 
     def retry_button_clicked(self, _):
+        self.setup_ui(fix_errors=False)
+
+    def model_config_changed_signal(self, *_):
         self.setup_ui(fix_errors=False)
