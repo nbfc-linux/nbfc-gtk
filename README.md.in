@@ -3,8 +3,6 @@ NBFC-Gtk - GUI for NBFC-Linux
 
 **nbfc-gtk** is a simple Gtk-based graphical user interface for [nbfc-linux](https://github.com/nbfc-linux/nbfc-linux).
 
-**NOTE: This is an alpha version**
-
 Installation
 ------------
 
