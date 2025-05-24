@@ -73,6 +73,19 @@ class MainWindow(Gtk.ApplicationWindow):
         self.notebook.append_page(self.widgets['sensors'], Gtk.Label(label='Sensors'))
         self.notebook.append_page(self.widgets['update'],  Gtk.Label(label='Update'))
 
+    # =========================================================================
+    # Public functions
+    # =========================================================================
+
+    def setTabById(self, id_):
+        widget = self.widgets[id_]
+        page_num = self.notebook.page_num(widget)
+        self.notebook.set_current_page(page_num)
+
+    # =========================================================================
+    # Signal functions
+    # =========================================================================
+
     def notebook_tab_changed(self, notebook, page, page_num):
         for i in range(self.notebook.get_n_pages()):
             widget = self.notebook.get_nth_page(i)
@@ -82,10 +95,6 @@ class MainWindow(Gtk.ApplicationWindow):
             else:
                 widget.stop()
 
-    def setTabById(self, id_):
-        widget = self.widgets[id_]
-        page_num = self.notebook.page_num(widget)
-        self.notebook.set_current_page(page_num)
-
     def showAbout(self, *_):
         dialog = AboutWidget(self)
+        dialog.present()

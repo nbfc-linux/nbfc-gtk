@@ -83,6 +83,10 @@ class FanWidget(Gtk.Frame):
         self.speed_scale.connect("value-changed", self.update_fan_speed)
         grid_box.attach(self.speed_scale, 0, 8, 2, 1)
 
+    # =========================================================================
+    # Helper functions
+    # =========================================================================
+
     def update(self, fan_index, fan_data):
         self.fan_index = fan_index
         self.name_label.set_text(fan_data['Name'])
@@ -104,8 +108,16 @@ class FanWidget(Gtk.Frame):
         self.auto_mode_checkbox.handler_unblock_by_func(self.update_fan_speed)
         self.speed_scale.handler_unblock_by_func(self.update_fan_speed)
 
+    # =========================================================================
+    # Signal functions
+    # =========================================================================
+
     def update_fan_speed(self, *_):
-        if self.auto_mode_checkbox.get_active():
+        auto_mode = self.auto_mode_checkbox.get_active()
+
+        if auto_mode:
             GLOBALS.nbfc_client.set_fan_speed('auto', self.fan_index)
         else:
             GLOBALS.nbfc_client.set_fan_speed(self.speed_scale.get_value(), self.fan_index)
+
+        self.speed_scale.set_sensitive(not auto_mode)

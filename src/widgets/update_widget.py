@@ -42,6 +42,10 @@ class UpdateWidget(Gtk.Box):
         # =====================================================================
 
         self.update_button = Gtk.Button(label="Update")
+        self.update_button.set_margin_start(6)
+        self.update_button.set_margin_end(6)
+        self.update_button.set_margin_top(6)
+        self.update_button.set_margin_bottom(6)
         self.update_button.connect("clicked", self.update_button_clicked)
         self.append(self.update_button)
 

@@ -9,6 +9,8 @@ class SensorWidget(Gtk.Box):
         # =====================================================================
 
         label = Gtk.Label(label="Algorithm:")
+        label.set_margin_start(6)
+        label.set_margin_end(6)
         label.set_margin_top(6)
         label.set_margin_bottom(6)
         self.append(label)
@@ -114,6 +116,10 @@ class SensorWidget(Gtk.Box):
         self.del_button.connect("clicked", self.del_button_clicked)
         button_box.append(self.del_button)
 
+    # =========================================================================
+    # Helper functions
+    # =========================================================================
+
     def set_fan_index(self, index):
         self.fan_index = index
 
@@ -138,8 +144,7 @@ class SensorWidget(Gtk.Box):
             try:
                 item = self.find_sensor_item(sensor)
                 self.temperature_sources.add(item.getKey(), item.getValue())
-            except Exception as e:
-                print(e) # TODO
+            except Exception:
                 self.temperature_sources.add(sensor, sensor)
 
     def find_sensor_item(self, sensor):
@@ -149,38 +154,6 @@ class SensorWidget(Gtk.Box):
                 return item
 
         raise Exception('No sensor found for %s' % sensor)
-
-    def sensors_changed(self, *_):
-        item = self.sensors.get_selected_item()
-
-        if item.getKey() == '<custom>':
-            self.custom_sensor.set_visible(True)
-            self.custom_sensor.set_placeholder_text("Sensor Name or File")
-        elif item.getKey() == '<command>':
-            self.custom_sensor.set_visible(True)
-            self.custom_sensor.set_placeholder_text("Shell Command")
-        else:
-            self.custom_sensor.set_visible(False)
-
-    def add_button_clicked(self, _):
-        item = self.sensors.get_selected_item()
-
-        if item.getKey() == '<custom>':
-            key = self.custom_sensor.get_text()
-            val = key
-        elif item.getKey() == '<command>':
-            key = '$ %s' % self.custom_sensor.get_text()
-            val = key
-        else:
-            key = item.getKey()
-            val = item.getValue()
-
-        self.temperature_sources.add(key, val)
-
-    def del_button_clicked(self, _):
-        idx = self.temperature_sources.get_selected_idx()
-        if idx >= 0 and idx < self.temperature_sources.model.get_n_items():
-            self.temperature_sources.model.remove(idx)
 
     def get_config(self):
         sensors = []
@@ -205,3 +178,51 @@ class SensorWidget(Gtk.Box):
             cfg['Sensors'] = sensors
 
         return cfg
+
+    # =========================================================================
+    # Signal functions
+    # =========================================================================
+
+    def sensors_changed(self, *_):
+        item = self.sensors.get_selected_item()
+        if item is None:
+            return
+
+        if item.getKey() == '<custom>':
+            self.custom_sensor.set_visible(True)
+            self.custom_sensor.set_placeholder_text("Sensor Name or File")
+        elif item.getKey() == '<command>':
+            self.custom_sensor.set_visible(True)
+            self.custom_sensor.set_placeholder_text("Shell Command")
+        else:
+            self.custom_sensor.set_visible(False)
+
+    def add_button_clicked(self, _):
+        item = self.sensors.get_selected_item()
+        if item is None:
+            return
+
+        if item.getKey() == '<custom>':
+            text = self.custom_sensor.get_text()
+            if not text.strip():
+                return
+
+            key = val = text
+            self.custom_sensor.set_text("")
+        elif item.getKey() == '<command>':
+            text = self.custom_sensor.get_text()
+            if not text.strip():
+                return
+
+            key = val = '$ %s' % self.custom_sensor.get_text()
+            self.custom_sensor.set_text("")
+        else:
+            key = item.getKey()
+            val = item.getValue()
+
+        self.temperature_sources.add(key, val)
+
+    def del_button_clicked(self, _):
+        idx = self.temperature_sources.get_selected_idx()
+        if idx >= 0 and idx < self.temperature_sources.model.get_n_items():
+            self.temperature_sources.model.remove(idx)

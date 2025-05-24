@@ -20,7 +20,7 @@ class EarlyErrorWindow(Gtk.ApplicationWindow):
         self.set_child(vbox)
 
         # =====================================================================
-        # Markup
+        # Label
         # =====================================================================
 
         self.desc = Gtk.Label()
@@ -38,3 +38,6 @@ class EarlyErrorWindow(Gtk.ApplicationWindow):
         ok_button = Gtk.Button(label="OK")
         ok_button.connect("clicked", lambda *_: self.close())
         vbox.append(ok_button)
+
+    def set_markup(self, markup):
+        self.desc.set_markup(markup)

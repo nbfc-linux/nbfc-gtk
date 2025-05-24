@@ -34,6 +34,8 @@ class FanControlWidget(Gtk.Box):
     # =========================================================================
 
     def start(self):
+        self.update()
+
         if self.timer_id is None:
             self.timer_id = GLib.timeout_add(500, self.update)
 

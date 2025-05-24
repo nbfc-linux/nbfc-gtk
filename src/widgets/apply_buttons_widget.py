@@ -45,6 +45,7 @@ class ApplyButtonsWidget(Gtk.Box):
         self.error_label.set_margin_end(6)
         self.error_label.set_margin_top(6)
         self.error_label.set_margin_bottom(6)
+        self.error_label.set_visible(False)
         self.append(self.error_label)
 
     def enable(self):

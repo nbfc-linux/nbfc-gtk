@@ -48,5 +48,3 @@ class AboutWidget(Gtk.Window):
         ok_button = Gtk.Button(label="OK")
         ok_button.connect("clicked", lambda *_: self.close())
         vbox.append(ok_button)
-
-        self.present()

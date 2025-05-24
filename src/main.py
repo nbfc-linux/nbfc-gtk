@@ -31,7 +31,7 @@ class Globals(GObject.GObject):
         self.nbfc_client = NbfcClient()
 
 GLOBALS = Globals()
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 REQUIRED_NBFC_VERSION = '0.3.16'
 GITHUB_URL = 'https://github.com/nbfc-linux/nbfc-linux'
 
@@ -115,7 +115,7 @@ NBFC-Linux version <b>{REQUIRED_NBFC_VERSION}</b> or newer is required to run th
 
 You can get the latest version from <a href="{GITHUB_URL}">GitHub.com</a>'''
             win = EarlyErrorWindow(self, "Version Error", "")
-            win.desc.set_markup(errmsg)
+            win.set_markup(errmsg)
             win.present()
             return
 
