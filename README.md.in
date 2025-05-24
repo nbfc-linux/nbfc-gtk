@@ -13,7 +13,7 @@ Installation
 
 - Debian / Ubuntu:
   - [Latest Version %TAG%](%DEBIAN_URL%)
-  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0`
+  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0 libgles2`
   - Install package: `dpkg -i ./%DEBIAN_PACKAGE%`
 
 - Fedora:
