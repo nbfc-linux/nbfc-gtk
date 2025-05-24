@@ -13,7 +13,7 @@ Installation
 
 - Debian / Ubuntu:
   - [Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk_0.2.0_amd64.deb)
-  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0`
+  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0 libgles2`
   - Install package: `dpkg -i ./nbfc-gtk_0.2.0_amd64.deb`
 
 - Fedora:
