@@ -7,22 +7,22 @@ Installation
 ------------
 
 - Arch Linux:
-  - [Latest Version %TAG%](%ARCHLINUX_URL%)
+  - [Download Latest Version %TAG%](%ARCHLINUX_URL%)
   - Install the dependencies: `pacman -S python-gobject gtk4`
   - Install package: `pacman -U ./%ARCHLINUX_PACKAGE%`
 
 - Debian / Ubuntu:
-  - [Latest Version %TAG%](%DEBIAN_URL%)
+  - [Download Latest Version %TAG%](%DEBIAN_URL%)
   - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0 libgles2`
   - Install package: `dpkg -i ./%DEBIAN_PACKAGE%`
 
 - Fedora:
-  - [Latest Version %TAG%](%FEDORA_URL%)
+  - [Download Latest Version %TAG%](%FEDORA_URL%)
   - Install the dependencies: `dnf install python3-gobject gtk4`
   - Install package: `dnf install ./%FEDORA_PACKAGE%`
 
 - OpenSuse (Tumbleweed)
-  - [Latest Version %TAG%](%OPENSUSE_URL%)
+  - [Download Latest Version %TAG%](%OPENSUSE_URL%)
   - Install the dependencies: `dnf install python3-gobject gtk4 gtk4-devel`
   - Install package: `zypper install ./%OPENSUSE_PACKAGE%`
 

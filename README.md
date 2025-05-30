@@ -7,22 +7,22 @@ Installation
 ------------
 
 - Arch Linux:
-  - [Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk-git-0.2.0-1-any.pkg.tar.zst)
+  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk-git-0.2.0-1-any.pkg.tar.zst)
   - Install the dependencies: `pacman -S python-gobject gtk4`
   - Install package: `pacman -U ./nbfc-gtk-git-0.2.0-1-any.pkg.tar.zst`
 
 - Debian / Ubuntu:
-  - [Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk_0.2.0_amd64.deb)
+  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk_0.2.0_amd64.deb)
   - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0 libgles2`
   - Install package: `dpkg -i ./nbfc-gtk_0.2.0_amd64.deb`
 
 - Fedora:
-  - [Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/fedora-nbfc-gtk-0.2.0-1.x86_64.rpm)
+  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/fedora-nbfc-gtk-0.2.0-1.x86_64.rpm)
   - Install the dependencies: `dnf install python3-gobject gtk4`
   - Install package: `dnf install ./fedora-nbfc-gtk-0.2.0-1.x86_64.rpm`
 
 - OpenSuse (Tumbleweed)
-  - [Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/opensuse-nbfc-gtk-0.2.0-1.x86_64.rpm)
+  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/opensuse-nbfc-gtk-0.2.0-1.x86_64.rpm)
   - Install the dependencies: `dnf install python3-gobject gtk4 gtk4-devel`
   - Install package: `zypper install ./opensuse-nbfc-gtk-0.2.0-1.x86_64.rpm`
 
