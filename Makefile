@@ -24,8 +24,11 @@ nbfc-gtk.py: \
 	(cd ./src; python3 ./include_files.py main.py > ../nbfc-gtk.py)
 	chmod +x nbfc-gtk.py
 
-README.md: README.md.in
+README.md: .force
 	./tools/update_readme.py README.md.in > README.md
+
+pkgbuilds/nbfc-gtk/PKGBUILD: .force
+	./tools/update_pkgbuild.py pkgbuilds/nbfc-gtk/PKGBUILD.in > pkgbuilds/nbfc-gtk/PKGBUILD
 
 install:
 	install -Dm 755 nbfc-gtk.py $(DESTDIR)$(bindir)/nbfc-gtk
@@ -37,3 +40,6 @@ clean:
 	rm -rf __pycache__
 	rm -f  nbfc-gtk.py
 	rm -f  src/ico.py
+
+.force:
+	@true
