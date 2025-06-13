@@ -13,13 +13,13 @@ source=("https://github.com/nbfc-linux/${pkgname}/archive/refs/tags/${pkgver}.ta
 sha256sums=('%SHA256%')
 
 build() {
-	cd "${srcdir}/${_pkgname}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
 
   make
 }
 
 package() {
-	cd "${srcdir}/${_pkgname}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
 
   make DESTDIR="${pkgdir}" install
 }
