@@ -7,24 +7,23 @@ Installation
 ------------
 
 - Arch Linux:
-  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk-git-0.2.0-1-any.pkg.tar.zst)
-  - Install the dependencies: `pacman -S python-gobject gtk4`
-  - Install package: `pacman -U ./nbfc-gtk-git-0.2.0-1-any.pkg.tar.zst`
+  - Packages is available via the Arch User Repository:
+    - `yay -S nbfc-gtk`
+  - Or manually:
+    - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/nbfc-gtk-git-0.2.1-1-any.pkg.tar.zst)
+    - Install package: `pacman -U ./nbfc-gtk-git-0.2.1-1-any.pkg.tar.zst`
 
 - Debian / Ubuntu:
-  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/nbfc-gtk_0.2.0_amd64.deb)
-  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0 libgles2`
-  - Install package: `dpkg -i ./nbfc-gtk_0.2.0_amd64.deb`
+  - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/nbfc-gtk_0.2.1_amd64.deb)
+  - Install package: `apt install ./nbfc-gtk_0.2.1_amd64.deb`
 
 - Fedora:
-  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/fedora-nbfc-gtk-0.2.0-1.x86_64.rpm)
-  - Install the dependencies: `dnf install python3-gobject gtk4`
-  - Install package: `dnf install ./fedora-nbfc-gtk-0.2.0-1.x86_64.rpm`
+  - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/fedora-nbfc-gtk-0.2.1-1.x86_64.rpm)
+  - Install package: `dnf install ./fedora-nbfc-gtk-0.2.1-1.x86_64.rpm`
 
 - OpenSuse (Tumbleweed)
-  - [Download Latest Version 0.2.0](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.0/opensuse-nbfc-gtk-0.2.0-1.x86_64.rpm)
-  - Install the dependencies: `dnf install python3-gobject gtk4 gtk4-devel`
-  - Install package: `zypper install ./opensuse-nbfc-gtk-0.2.0-1.x86_64.rpm`
+  - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/opensuse-nbfc-gtk-0.2.1-1.x86_64.rpm)
+  - Install package: `zypper install ./opensuse-nbfc-gtk-0.2.1-1.x86_64.rpm`
 
 - In general:
   - make && sudo make install
@@ -33,6 +32,8 @@ Usage
 -----
 
 For **configuring** and **starting** the NBFC service, run `sudo nbfc-gtk`.
+
+For **controlling** the fans, no root privileges are needed.
 
 Screenshots
 -----------

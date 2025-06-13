@@ -7,23 +7,22 @@ Installation
 ------------
 
 - Arch Linux:
-  - [Download Latest Version %TAG%](%ARCHLINUX_URL%)
-  - Install the dependencies: `pacman -S python-gobject gtk4`
-  - Install package: `pacman -U ./%ARCHLINUX_PACKAGE%`
+  - Packages is available via the Arch User Repository:
+    - `yay -S nbfc-gtk`
+  - Or manually:
+    - [Download Latest Version %TAG%](%ARCHLINUX_URL%)
+    - Install package: `pacman -U ./%ARCHLINUX_PACKAGE%`
 
 - Debian / Ubuntu:
   - [Download Latest Version %TAG%](%DEBIAN_URL%)
-  - Install the dependencies: `apt install python3-gi gir1.2-gtk-4.0 libgles2`
-  - Install package: `dpkg -i ./%DEBIAN_PACKAGE%`
+  - Install package: `apt install ./%DEBIAN_PACKAGE%`
 
 - Fedora:
   - [Download Latest Version %TAG%](%FEDORA_URL%)
-  - Install the dependencies: `dnf install python3-gobject gtk4`
   - Install package: `dnf install ./%FEDORA_PACKAGE%`
 
 - OpenSuse (Tumbleweed)
   - [Download Latest Version %TAG%](%OPENSUSE_URL%)
-  - Install the dependencies: `dnf install python3-gobject gtk4 gtk4-devel`
   - Install package: `zypper install ./%OPENSUSE_PACKAGE%`
 
 - In general:
@@ -33,6 +32,8 @@ Usage
 -----
 
 For **configuring** and **starting** the NBFC service, run `sudo nbfc-gtk`.
+
+For **controlling** the fans, no root privileges are needed.
 
 Screenshots
 -----------
