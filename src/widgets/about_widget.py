@@ -8,8 +8,6 @@ ABOUT_NBFC_LINUX = """\
 <b>Project Homepage</b>: <a href="https://github.com/nbfc-linux/nbfc-linux">GitHub.com/NBFC-Linux/NBFC-Linux</a>
 
 <b>Donation Link</b>: <a href="https://paypal.me/BenjaminAbendroth">PayPal.me/BenjaminAbendroth</a>
-
-<b>AUR Packages</b>: Provided by <a href="https://github.com/BachoSeven">Francesco Minnocci</a>
 """
 
 class AboutWidget(Gtk.Window):
