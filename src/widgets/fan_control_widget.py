@@ -57,7 +57,8 @@ class FanControlWidget(Gtk.Box):
             self.scrolled.set_visible(False)
             self.error_label.set_visible(True)
             self.error_label.set_text(str(e))
-            return
+            self.timer_id = None
+            return False
 
         while len(get_children(self.widgets)) < len(status['Fans']):
             widget = FanWidget()
