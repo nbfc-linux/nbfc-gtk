@@ -31,7 +31,7 @@ class Globals(GObject.GObject):
         self.nbfc_client = NbfcClient()
 
 GLOBALS = Globals()
-VERSION = "0.2.1"
+VERSION = "0.2.2"
 REQUIRED_NBFC_VERSION = '0.3.16'
 GITHUB_URL = 'https://github.com/nbfc-linux/nbfc-linux'
 
