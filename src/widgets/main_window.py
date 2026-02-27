@@ -150,10 +150,12 @@ class MainWindow(Gtk.ApplicationWindow):
         self.widgets['basic']   = BasicConfigWidget()
         self.widgets['sensors'] = SensorsWidget()
         self.widgets['update']  = UpdateWidget()
+        self.widgets['rated']   = RateConfigsWidget()
 
         self.notebook.append_page(self.widgets['service'], Gtk.Label(label='Service'))
         self.notebook.append_page(self.widgets['fans'],    Gtk.Label(label='Fans'))
         self.notebook.append_page(self.widgets['basic'],   Gtk.Label(label='Basic Configuration'))
+        self.notebook.append_page(self.widgets['rated'],   Gtk.Label(label='Rated Configs'))
         self.notebook.append_page(self.widgets['sensors'], Gtk.Label(label='Sensors'))
         self.notebook.append_page(self.widgets['update'],  Gtk.Label(label='Update'))
 

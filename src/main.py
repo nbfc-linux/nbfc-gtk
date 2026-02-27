@@ -30,6 +30,35 @@ class Globals(GObject.GObject):
     def init(self):
         self.nbfc_client = NbfcClient()
 
+    def set_model_config(self, model_config):
+        '''
+        Save `model_config` to the service configuration file.
+
+        This may raise an exception.
+        '''
+
+        service_config = self.nbfc_client.get_service_config()
+
+        old_model_config = service_config.get('SelectedConfigId', '')
+
+        service_config['SelectedConfigId'] = model_config
+
+        self.nbfc_client.set_service_config(service_config)
+
+        if old_model_config != model_config:
+            GLib.idle_add(self.emit, "model_config_changed")
+
+    def set_model_config_and_restart(self, model_config, read_only):
+        '''
+        Save `model_config` to the service configuration file and restart
+        the service.
+
+        This may raise an exception.
+        '''
+
+        self.set_model_config(model_config)
+        GLib.idle_add(self.emit, "restart_service", read_only)
+
 GLOBALS = Globals()
 VERSION = "0.2.2"
 REQUIRED_NBFC_VERSION = '0.3.16'
@@ -39,6 +68,7 @@ GITHUB_URL = 'https://github.com/nbfc-linux/nbfc-linux'
 #include widgets/apply_buttons_widget.py
 #include widgets/service_control_widget.py
 #include widgets/basic_config_widget.py
+#include widgets/rate_configs_widget.py
 #include widgets/fan_widget.py
 #include widgets/fan_control_widget.py
 #include widgets/sensor_widget.py
@@ -66,6 +96,10 @@ grp.add_argument('--fans',
 grp.add_argument('--basic',
     help='Start with basic configuration widget',
     dest='widget', action='store_const', const='basic')
+
+grp.add_argument('--rated',
+    help='Start with rated configurations widget',
+    dest='widget', action='store_const', const='rated')
 
 grp.add_argument('--sensors',
     help='Start with sensors widget',

@@ -124,6 +124,8 @@ class SensorWidget(Gtk.Box):
         self.fan_index = index
 
     def set_available_sensors(self, available_sensors):
+        self.sensors.model.remove_all()
+
         for sensor in available_sensors:
             self.sensors.add(sensor.name, "%s (%s)" % (sensor.name, sensor.description))
 

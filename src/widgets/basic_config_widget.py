@@ -1,6 +1,53 @@
+CONFIRMATION_TEXT = """\
+You are about to view configurations with names similar to your laptop model.
+
+Please note that similar model names do not guarantee compatibility. The register configuration may be completely different.
+
+Using a configuration that does <b>not exactly match</b> your laptop model can be <b>very dangerous and may cause hardware damage.</b>
+
+Please use the <b>Rated Configs</b> tab to find verified configuration recommendations for your device."""
+
+class ConfirmationDialog(Gtk.Window):
+    def __init__(self, callback, parent):
+        super().__init__(title="Warning", transient_for=parent, modal=True)
+        self.callback = callback
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        self.set_child(box)
+
+        label = Gtk.Label()
+        label.set_wrap(True)
+        label.set_max_width_chars(40)
+        label.set_markup(CONFIRMATION_TEXT)
+        label.set_margin_start(6)
+        label.set_margin_end(6)
+        label.set_margin_top(6)
+        label.set_margin_bottom(6)
+        box.append(label)
+
+        self.checkbox = Gtk.CheckButton(label="I understand the risks")
+        self.checkbox.set_margin_start(6)
+        self.checkbox.set_margin_end(6)
+        self.checkbox.set_margin_top(6)
+        self.checkbox.set_margin_bottom(6)
+        box.append(self.checkbox)
+
+        button = Gtk.Button(label="Close")
+        button.set_margin_start(6)
+        button.set_margin_end(6)
+        button.set_margin_top(6)
+        button.set_margin_bottom(6)
+        button.connect("clicked", self.close_clicked)
+        box.append(button)
+
+    def close_clicked(self, button):
+        self.callback(self.checkbox.get_active())
+        self.close()
+
 class BasicConfigWidget(Gtk.Box):
     def __init__(self):
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
+        self.confirmed_risks = False
 
         # =====================================================================
         # Model label
@@ -64,7 +111,7 @@ class BasicConfigWidget(Gtk.Box):
         self.list_all_radio.connect("toggled", self.list_all_radio_checked)
         self.append(self.list_all_radio)
 
-        self.list_recommended_radio = Gtk.CheckButton(label="List recommended configurations")
+        self.list_recommended_radio = Gtk.CheckButton(label="List similar named configurations")
         self.list_recommended_radio.set_margin_start(6)
         self.list_recommended_radio.set_margin_end(6)
         self.list_recommended_radio.set_margin_top(6)
@@ -188,24 +235,6 @@ class BasicConfigWidget(Gtk.Box):
 
         self.selected_config_input.set_text(SelectedConfigId)
 
-    def save_config(self):
-        '''
-        Save the selected configuration to the service configuration file.
-
-        This may raise an exception.
-        '''
-
-        config = GLOBALS.nbfc_client.get_service_config()
-
-        old_config = config.get('SelectedConfigId', '')
-
-        config['SelectedConfigId'] = self.selected_config_input.get_text()
-
-        GLOBALS.nbfc_client.set_service_config(config)
-
-        if old_config != config['SelectedConfigId']:
-            GLib.idle_add(GLOBALS.emit, "model_config_changed")
-
     def update_configuration_combobox(self, available_configs):
         self.configurations_dropdown.model.remove_all()
 
@@ -228,20 +257,26 @@ class BasicConfigWidget(Gtk.Box):
             show_error_message(self, "Error", str(e))
 
     def save_button_clicked(self, _):
+        model_config = self.selected_config_input.get_text()
+
         try:
-            self.save_config()
+            GLOBALS.set_model_config(model_config)
         except Exception as e:
             show_error_message(self, "Error", str(e))
 
     def apply_button_clicked(self, _):
+        model_config = self.selected_config_input.get_text()
+        read_only = self.apply_buttons_widget.read_only_checkbox.get_active()
+
         try:
-            self.save_config()
-            read_only = self.apply_buttons_widget.read_only_checkbox.get_active()
-            GLib.idle_add(GLOBALS.emit, "restart_service", read_only)
+            GLOBALS.set_model_config_and_restart(model_config, read_only)
         except Exception as e:
             show_error_message(self, "Error", str(e))
 
     def list_all_radio_checked(self, _):
+        if not self.list_all_radio.get_active():
+            return
+
         self.select_file_button.set_visible(False)
         self.configurations_dropdown.set_visible(True)
         self.set_button.set_visible(True)
@@ -250,6 +285,22 @@ class BasicConfigWidget(Gtk.Box):
         self.update_configuration_combobox(configs)
 
     def list_recommended_radio_checked(self, _):
+        if not self.list_recommended_radio.get_active():
+            return
+
+        if not self.confirmed_risks:
+            def confirmation_dialog_exited(confirmed):
+                if confirmed:
+                    self.confirmed_risks = True
+                    self.list_recommended_radio_checked(None)
+                else:
+                    self.list_all_radio.set_active(True)
+
+            toplevel_window = self.get_ancestor(Gtk.Window)
+            dialog = ConfirmationDialog(confirmation_dialog_exited, toplevel_window)
+            dialog.present()
+            return
+
         self.select_file_button.set_visible(False)
         self.configurations_dropdown.set_visible(True)
         self.set_button.set_visible(True)
@@ -258,6 +309,9 @@ class BasicConfigWidget(Gtk.Box):
         self.update_configuration_combobox(configs)
 
     def custom_file_radio_checked(self, _):
+        if not self.custom_file_radio.get_active():
+            return
+
         self.select_file_button.set_visible(True)
         self.set_button.set_visible(False)
         self.configurations_dropdown.set_visible(False)
