@@ -68,6 +68,7 @@ GITHUB_URL = 'https://github.com/nbfc-linux/nbfc-linux'
 #include widgets/apply_buttons_widget.py
 #include widgets/service_control_widget.py
 #include widgets/basic_config_widget.py
+#include widgets/rate_configs_help_widget.py
 #include widgets/rate_configs_widget.py
 #include widgets/fan_widget.py
 #include widgets/fan_control_widget.py

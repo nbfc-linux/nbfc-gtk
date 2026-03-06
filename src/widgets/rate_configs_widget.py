@@ -214,19 +214,28 @@ class RateConfigsWidget(Gtk.Box):
         self.threshold_spin.set_value(9.0)
         self.threshold_spin.connect("value-changed", self.threshold_spin_changed)
         self.threshold_spin.set_margin_start(6)
-        self.threshold_spin.set_margin_end(6)
+        self.threshold_spin.set_margin_end(3)
         self.threshold_spin.set_margin_top(6)
         self.threshold_spin.set_margin_bottom(6)
 
         self.load_button = Gtk.Button(label="Load configs")
         self.load_button.connect("clicked", self.load_button_clicked)
-        self.load_button.set_margin_end(6)
+        self.load_button.set_margin_start(3)
+        self.load_button.set_margin_end(3)
         self.load_button.set_margin_top(6)
         self.load_button.set_margin_bottom(6)
+
+        self.help_button = Gtk.Button(label="Help")
+        self.help_button.connect("clicked", self.help_button_clicked)
+        self.help_button.set_margin_start(3)
+        self.help_button.set_margin_end(6)
+        self.help_button.set_margin_top(6)
+        self.help_button.set_margin_bottom(6)
 
         hbox.append(label)
         hbox.append(self.threshold_spin)
         hbox.append(self.load_button)
+        hbox.append(self.help_button)
 
         # =====================================================================
         # Warning label
@@ -334,6 +343,11 @@ class RateConfigsWidget(Gtk.Box):
 
     def load_button_clicked(self, button):
         self.load_rated_configs_list()
+
+    def help_button_clicked(self, button):
+        toplevel_window = self.get_ancestor(Gtk.Window)
+        dialog = RateConfigsHelpWindow(toplevel_window)
+        dialog.present()
 
     def threshold_spin_changed(self, spin):
         self.warning_label.set_visible(self.threshold_spin.get_value() < 9.0)
