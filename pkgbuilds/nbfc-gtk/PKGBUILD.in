@@ -7,7 +7,7 @@ pkgdesc="Graphical User Interface (GUI) for NBFC-Linux (Gtk-based)"
 arch=('any')
 url="https://github.com/nbfc-linux/nbfc-gtk"
 makedepends=('python3')
-depends=('nbfc-linux>=0.3.17' 'python-gobject' 'gtk4')
+depends=('nbfc-linux>=0.4.0' 'python-gobject' 'gtk4')
 license=('GPL-3.0-only')
 source=("https://github.com/nbfc-linux/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
 sha256sums=('%SHA256%')
