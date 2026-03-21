@@ -60,7 +60,7 @@ class Globals(GObject.GObject):
         GLib.idle_add(self.emit, "restart_service", read_only)
 
 GLOBALS = Globals()
-VERSION = "0.4.0"
+VERSION = "0.4.1"
 REQUIRED_NBFC_VERSION = '0.4.0'
 GITHUB_URL = 'https://github.com/nbfc-linux/nbfc-linux'
 
