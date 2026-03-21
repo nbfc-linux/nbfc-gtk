@@ -1,53 +1,47 @@
-CONFIRMATION_TEXT = """\
-You are about to view configurations with names similar to your laptop model.
+CONFIG_WARNING_TEXT = """\
+In this tab, you can select and apply a model configuration for your device.
 
-Please note that similar model names do not guarantee compatibility. The register configuration may be completely different.
+<b>Warning</b>: Applying an incorrect configuration may cause serious and potentially irreversible damage to your hardware, especially the battery.
 
-Using a configuration that does <b>not exactly match</b> your laptop model can be <b>very dangerous and may cause hardware damage.</b>
+Only use configurations that <b>exactly match</b> your model name.
 
-Please use the <b>Rated Configs</b> tab to find verified configuration recommendations for your device."""
+If no configuration matches your model name, you can use the <b>Rated Configs</b> tab to try other suitable configurations.\
+"""
 
-class ConfirmationDialog(Gtk.Window):
-    def __init__(self, callback, parent):
-        super().__init__(title="Warning", transient_for=parent, modal=True)
+class BasicConfigWarning(Gtk.Box):
+    def __init__(self, callback):
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.callback = callback
 
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.set_child(box)
+        self.set_margin_start(16)
+        self.set_margin_end(16)
+        self.set_margin_top(16)
+        self.set_margin_bottom(16)
 
         label = Gtk.Label()
         label.set_wrap(True)
         label.set_max_width_chars(40)
-        label.set_markup(CONFIRMATION_TEXT)
-        label.set_margin_start(6)
-        label.set_margin_end(6)
-        label.set_margin_top(6)
-        label.set_margin_bottom(6)
-        box.append(label)
+        label.set_markup(CONFIG_WARNING_TEXT)
+        self.append(label)
+
+        spacer = Gtk.Box()
+        spacer.set_vexpand(True)
+        self.append(spacer)
 
         self.checkbox = Gtk.CheckButton(label="I understand the risks")
-        self.checkbox.set_margin_start(6)
-        self.checkbox.set_margin_end(6)
-        self.checkbox.set_margin_top(6)
         self.checkbox.set_margin_bottom(6)
-        box.append(self.checkbox)
+        self.append(self.checkbox)
 
-        button = Gtk.Button(label="Close")
-        button.set_margin_start(6)
-        button.set_margin_end(6)
-        button.set_margin_top(6)
-        button.set_margin_bottom(6)
+        button = Gtk.Button(label="Ok")
         button.connect("clicked", self.close_clicked)
-        box.append(button)
+        self.append(button)
 
     def close_clicked(self, button):
         self.callback(self.checkbox.get_active())
-        self.close()
 
-class BasicConfigWidget(Gtk.Box):
+class BasicConfigCoreWidget(Gtk.Box):
     def __init__(self):
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
-        self.confirmed_risks = False
 
         # =====================================================================
         # Model label
@@ -201,16 +195,6 @@ class BasicConfigWidget(Gtk.Box):
             self.model_name_label.set_markupText("<b>Could not get model name</b>")
 
     # =========================================================================
-    # Widget start / stop
-    # =========================================================================
-
-    def start(self):
-        pass
-
-    def stop(self):
-        pass
-
-    # =========================================================================
     # Helper functions
     # =========================================================================
 
@@ -288,19 +272,6 @@ class BasicConfigWidget(Gtk.Box):
         if not self.list_recommended_radio.get_active():
             return
 
-        if not self.confirmed_risks:
-            def confirmation_dialog_exited(confirmed):
-                if confirmed:
-                    self.confirmed_risks = True
-                    self.list_recommended_radio_checked(None)
-                else:
-                    self.list_all_radio.set_active(True)
-
-            toplevel_window = self.get_ancestor(Gtk.Window)
-            dialog = ConfirmationDialog(confirmation_dialog_exited, toplevel_window)
-            dialog.present()
-            return
-
         self.select_file_button.set_visible(False)
         self.configurations_dropdown.set_visible(True)
         self.set_button.set_visible(True)
@@ -325,3 +296,33 @@ class BasicConfigWidget(Gtk.Box):
         path = FileDialogHelper.get_open_filename(self, "Choose Configuration File", filters=[("JSON Files", "*.json")])
         if path:
             self.selected_config_input.set_text(path)
+
+class BasicConfigWidget(Gtk.Stack):
+    def __init__(self):
+        super().__init__()
+
+        self.basic_config_core_widget = BasicConfigCoreWidget()
+        self.basic_config_warning = BasicConfigWarning(self.warning_clicked)
+
+        self.add_named(self.basic_config_core_widget, "config")
+        self.add_named(self.basic_config_warning, "warning")
+
+        self.set_visible_child_name("warning")
+
+    # =========================================================================
+    # Widget start / stop
+    # =========================================================================
+
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+    # =========================================================================
+    # Signal functions
+    # =========================================================================
+
+    def warning_clicked(self, risk_confirmed):
+        if risk_confirmed:
+            self.set_visible_child_name("config")
