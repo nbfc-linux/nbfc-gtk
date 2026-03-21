@@ -90,11 +90,11 @@ class FanWidget(Gtk.Frame):
     def update(self, fan_index, fan_data):
         self.fan_index = fan_index
         self.name_label.set_text(fan_data['Name'])
-        self.temperature_label.set_text(str(fan_data['Temperature']))
+        self.temperature_label.set_text(f'{fan_data['Temperature']:.2f}')
         self.auto_mode_label.set_text(str(fan_data['AutoMode']))
         self.critical_label.set_text(str(fan_data['Critical']))
-        self.current_speed_label.set_text(str(fan_data['CurrentSpeed']))
-        self.target_speed_label.set_text(str(fan_data['TargetSpeed']))
+        self.current_speed_label.set_text(f'{fan_data['CurrentSpeed']:.2f}')
+        self.target_speed_label.set_text(f'{fan_data['TargetSpeed']:.2f}')
         self.speed_steps_label.set_text(str(fan_data['SpeedSteps']))
 
         # Block signals to avoid triggering during update
