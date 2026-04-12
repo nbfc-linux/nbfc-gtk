@@ -10,20 +10,20 @@ Installation
   - Packages is available via the Arch User Repository:
     - `yay -S nbfc-gtk`
   - Or manually:
-    - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/nbfc-gtk-git-0.2.1-1-any.pkg.tar.zst)
-    - Install package: `pacman -U ./nbfc-gtk-git-0.2.1-1-any.pkg.tar.zst`
+    - [Download Latest Version 0.4.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.4.1/arch-linux-nbfc-gtk-git-0.4.1-1-any.pkg.tar.zst)
+    - Install package: `pacman -U ./arch-linux-nbfc-gtk-git-0.4.1-1-any.pkg.tar.zst`
 
 - Debian / Ubuntu:
-  - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/nbfc-gtk_0.2.1_amd64.deb)
-  - Install package: `apt install ./nbfc-gtk_0.2.1_amd64.deb`
+  - [Download Latest Version 0.4.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.4.1/debian-nbfc-gtk_0.4.1_amd64.deb)
+  - Install package: `apt install ./debian-nbfc-gtk_0.4.1_amd64.deb`
 
 - Fedora:
-  - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/fedora-nbfc-gtk-0.2.1-1.x86_64.rpm)
-  - Install package: `dnf install ./fedora-nbfc-gtk-0.2.1-1.x86_64.rpm`
+  - [Download Latest Version 0.4.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.4.1/fedora-nbfc-gtk-0.4.1-1.x86_64.rpm)
+  - Install package: `dnf install ./fedora-nbfc-gtk-0.4.1-1.x86_64.rpm`
 
 - OpenSuse (Tumbleweed)
-  - [Download Latest Version 0.2.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.2.1/opensuse-nbfc-gtk-0.2.1-1.x86_64.rpm)
-  - Install package: `zypper install ./opensuse-nbfc-gtk-0.2.1-1.x86_64.rpm`
+  - [Download Latest Version 0.4.1](https://github.com/nbfc-linux/nbfc-gtk/releases/download/0.4.1/opensuse-nbfc-gtk-0.4.1-1.x86_64.rpm)
+  - Install package: `zypper install ./opensuse-nbfc-gtk-0.4.1-1.x86_64.rpm`
 
 - In general:
   - make && sudo make install
